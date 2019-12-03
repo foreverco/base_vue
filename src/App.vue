@@ -15,12 +15,19 @@ import TodoFooter from './components/TodoFooter.vue'
 export default {
   data () {
     return {
-        todoLists:[
-            {name:'吃饭',complete:false},
-            {name:'睡觉',complete:true},
-            {name:'coding',complete:false}
-        ]
+        // 从localStorage读取todoLists
+        todoLists:JSON.parse(window.localStorage.getItem('todos_key') || '[]')
     };
+  },
+  watch: { // 深度监视
+    todoLists:{
+        deep:true,// 深度监视
+        handler:function(value){
+            // 将最新的json数据保存到localStorage中
+            window.localStorage.setItem('todos_key',JSON.stringify(value))
+        }
+    }
+      
   },
   components:{
       TodoHeader,
@@ -29,7 +36,7 @@ export default {
   },
   methods: {
       addtodoLists(todo){
-          this.todoLists.unshift(Object.assign(todo))
+          this.todoLists.unshift(todo)
           
       },
       deltodoLists(index){

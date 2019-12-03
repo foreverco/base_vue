@@ -1,7 +1,7 @@
 <template>
   <div>
        <div class="todo-header">
-        <input v-model='msg' type="text" @keyup.enter="pushList" placeholder="请输入你的任务名称，按回车键确认"/>
+        <input v-model='name' type="text" @keyup.enter="pushList" placeholder="请输入你的任务名称，按回车键确认"/>
       </div>
   </div>
 </template>
@@ -13,16 +13,27 @@ export default {
     },
   data () {
     return {
-        msg:'',
+        name:'',
         newObj:{}
     };
   },
   methods: {
       pushList (){
-          this.newObj.name = this.msg;
-          this.newObj.complete=false;
-          console.log(this.newObj)
-            this.addtodoLists(this.newObj)
+        //   this.newObj.name = this.msg;
+        //   this.newObj.complete=false;
+        //   console.log(this.newObj)
+        //     this.addtodoLists(this.newObj)
+        const name = this.name.trim()
+        if(!name){
+            alert('必须输入')
+            return
+        }
+        const todo = {
+            name,
+            complete:false
+        }
+        this.addtodoLists(todo)
+        this.name=''
       }
   },
 

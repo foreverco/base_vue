@@ -26,7 +26,7 @@ export default {
       },
       isAllCheck:{
           get(){
-              return this.completeSize ===this.todoLists.length
+              return this.completeSize ===this.todoLists.length && this.completeSize>0
           },
           set(value){ // value是当前check最新的值
                 this.selectAllTodos(value)
